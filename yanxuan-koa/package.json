@@ -1,0 +1,15 @@
+{
+    "name": "yanxuan-koa",
+    "version": "1.0.0",
+    "description": "yanxuan-koa",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "keywords": [],
+    "author": "czh",
+    "license": "ISC",
+    "dependencies": {
+        "koa": "2.0.0"
+    }
+}

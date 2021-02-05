@@ -1,0 +1,23 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/yanxuan-fe/node_modules
+/yanxuan-fe/.pnp
+/yanxuan-fe.pnp.js
+/yanxuan-koa/node_modules
+# testing
+/yanxuan-fe/coverage
+
+# production
+/yanxuan-fe/build
+
+# misc
+/yanxuan-fe/.DS_Store
+/yanxuan-fe/.env.local
+/yanxuan-fe/.env.development.local
+/yanxuan-fe/.env.test.local
+/yanxuan-fe/.env.production.local
+
+/yanxuan-fe/npm-debug.log*
+/yanxuan-fe/yarn-debug.log*
+/yanxuan-fe/yarn-error.log*
