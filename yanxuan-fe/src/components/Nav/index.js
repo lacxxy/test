@@ -15,18 +15,17 @@ const Nav = () => {
     ]
     return (
         <div className="Nav">
-            <Menu mode="horizontal">
+            <Menu className="Nav-inner" mode="horizontal">
                 {
                     guide.map(item => {
                         return (
-                            <Menu.Item key={item.key}>
+                            <Menu.Item className="Nav-inner-item" key={item.key}>
                                 {item.text}
                             </Menu.Item>
                         )
                     })
                 }
             </Menu>
-            <Button>1</Button>
         </div>
     )
 }
