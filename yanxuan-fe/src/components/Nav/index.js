@@ -1,5 +1,6 @@
 import React from 'react';
-import { Menu, Button } from 'antd';
+import { Menu } from 'antd';
+import {Link} from 'react-router-dom';
 import './index.less'
 const Nav = () => {
     const guide = [
@@ -20,7 +21,7 @@ const Nav = () => {
                     guide.map(item => {
                         return (
                             <Menu.Item className="Nav-inner-item" key={item.key}>
-                                {item.text}
+                                <Link to={`/${item.key}`}>{item.text}</Link>
                             </Menu.Item>
                         )
                     })
