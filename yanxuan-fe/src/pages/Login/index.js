@@ -35,8 +35,9 @@ const Login = (props) => {
                 <label>邮箱</label>
                 <Input onChange={(e) => { setEmail(e.target.value) }} value={email} />
                 <label>密码</label>
-                <Input onChange={(e) => { setPwd(e.target.value) }} value={pwd} type="password" />
+                <Input.Password onChange={(e) => { setPwd(e.target.value) }} value={pwd} />
                 <Button type="primary" onClick={login}>登录</Button>
+                <a target="_blank" href="#/register">注册</a>
             </div>
             <div className="shadow" onClick={hide}>
 
