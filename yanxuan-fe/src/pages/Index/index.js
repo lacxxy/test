@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PtsList from '../../components/PtsList/index';
+import Nav from '../../components/Nav/index';
 import axios from 'axios';
 const Index = (props) => {
     const [ListData, setListData] = useState([]);
@@ -13,6 +14,7 @@ const Index = (props) => {
     }, [props.match.params.type])
     return (
         <div id="Index">
+            <Nav/>
             <PtsList data={ListData} />
         </div>
     )

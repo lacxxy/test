@@ -21,7 +21,7 @@ const Nav = () => {
                     guide.map(item => {
                         return (
                             <Menu.Item className="Nav-inner-item" key={item.key}>
-                                <Link to={`/${item.key}`}>{item.text}</Link>
+                                <Link to={`/index/${item.key}`}>{item.text}</Link>
                             </Menu.Item>
                         )
                     })
