@@ -1,18 +1,8 @@
 const query = require('../../mysql/connect');
+const guide=require('../../const/guide');
 module.exports = async (ctx, next) => {
-    const types = {
-        index: 0,
-        home: 1,
-        cloth: 2,
-        food: 3,
-        clean: 4,
-        child: 5,
-        sport: 6,
-        digit: 7,
-        world: 8
-    }
     let sql;
-    const type = types[ctx.request.query.type];
+    const type = guide[ctx.request.query.type];
     if (type === 0) {
         sql = `select * from postings`;
     } else {

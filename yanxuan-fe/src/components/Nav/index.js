@@ -1,22 +1,15 @@
 import React from 'react';
 import { Menu } from 'antd';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { guide } from '../../const/index';
 import './index.less'
 const Nav = () => {
-    const guide = [
-        { key: 'index', text: '首页' },
-        { key: 'home', text: '居家生活' },
-        { key: 'cloth', text: '服饰鞋包' },
-        { key: 'food', text: '美食酒水' },
-        { key: 'clean', text: '个护清洁' },
-        { key: 'child', text: '母婴亲子' },
-        { key: 'sport', text: '运动旅行' },
-        { key: 'digit', text: '数码家电' },
-        { key: 'world', text: '严选全球' },
-    ]
     return (
         <div className="Nav">
             <Menu className="Nav-inner" mode="horizontal">
+                <Menu.Item className="Nav-inner-item" key='index'>
+                    <Link to={`/index/index`}>首页</Link>
+                </Menu.Item>
                 {
                     guide.map(item => {
                         return (
