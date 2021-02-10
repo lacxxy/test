@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PtsList from '../../components/PtsList/index';
-import Nav from '../../components/Nav/index';
 import Edit from '../../components/Edit/index';
 import { Input, Select, Button } from 'antd';
 import './index.less';
@@ -40,7 +39,7 @@ const Index = (props) => {
         }
         const params = {
             title: title,
-            text: edit.current.getText(),
+            text: edit.current.getVal(),
             type: selectVal,
         }
         axios.post('/api/newPst', params).then((res) => {
@@ -52,7 +51,6 @@ const Index = (props) => {
     }
     return (
         <div id="Index">
-            <Nav />
             <PtsList data={ListData} />
             <div className="edit">
                 <Input placeholder="请输入标题" value={title} onChange={(e) => { setTitle(e.target.value) }} />

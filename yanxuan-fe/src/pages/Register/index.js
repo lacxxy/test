@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import './index.less';
 import axios from 'axios';
+import Nav from '../../components/Nav/index';
 const Rgst = (props) => {
     const [form] = Form.useForm();
     const submit = () => {

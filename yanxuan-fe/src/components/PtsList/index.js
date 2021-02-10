@@ -4,7 +4,7 @@ import './index.less';
 import moment from 'moment';
 const PtsList = (props) => {
     function dateFormatter(value) {
-        var date = moment.parseZone(value).local().format('HH:mm:ss YYYY-MM-DD');
+        var date = moment.parseZone(value).local().format('YYYY-MM-DD HH:mm');
         return date;
     }
     return (
@@ -17,7 +17,7 @@ const PtsList = (props) => {
                 bordered
                 dataSource={props.data}
                 renderItem={item => <List.Item>
-                    <a href={''}>{item.title}</a>
+                    <a target="_blank" href={`#/detail/${item.id}`}>{item.title}</a>
                     <span>{dateFormatter(item.date)}</span>
                 </List.Item>}
             />
