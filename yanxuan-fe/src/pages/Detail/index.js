@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Edit from '../../components/Edit/index';
 import Comment from '../../components/Comment/index';
+import Quote from '../../components/Quote/index';
 import './index.less';
 import moment from 'moment';
 import cookie from 'react-cookies';
@@ -9,6 +10,7 @@ import { Avatar, Button } from 'antd';
 const Detail = (props) => {
     const id = props.match.params.id;
     const [detailData, setDetailData] = useState([]);
+    const [replyData, setReplyData] = useState({});
     const edit = useRef();
     const dateFormatter = (value) => {
         var date = moment.parseZone(value).local().format('YYYY-MM-DD HH:mm');
@@ -17,7 +19,8 @@ const Detail = (props) => {
     const clearInput = () => {
         edit.current.setVal('');
     }
-    const submit = (superiorId) => {
+    const submit = () => {
+        console.log(replyData)
         const text = edit.current.getVal();
         if (!text.length) {
             alert("不能为空");
@@ -30,7 +33,7 @@ const Detail = (props) => {
         const params = {
             word: text,
             postingId: id,
-            superiorId: superiorId,
+            superiorId: replyData.id || -1,
         };
         axios.post('/api/newCmt', params).then(res => {
             const data = res.data;
@@ -40,10 +43,39 @@ const Detail = (props) => {
             }
         })
     }
+    const dataFormatter = (value) => {
+        let res = [];
+        const find = (val) => {
+            for (let item of value) {
+                if (item.id == val) {
+                    return {
+                        username: item.username,
+                        word: item.word
+                    }
+                }
+            }
+            return {
+                username: '',
+                word: ''
+            }
+        }
+        res = value.map(item => {
+            if (item.superiorId === -1) {
+                return item
+            } else {
+                return {
+                    ...item,
+                    quote: find(item.superiorId)
+                }
+            }
+        })
+        return res;
+    }
     useEffect(() => {
         axios.get(`/api/getDetail?id=${id}`).then(res => {
             const data = res.data;
             if (data.code == 200) {
+                data.data.comments = dataFormatter(data.data.comments)
                 setDetailData(data.data)
             }
         });
@@ -62,11 +94,14 @@ const Detail = (props) => {
             </div>
             {
                 detailData.comments ? detailData.comments.map((item, index) => {
-                    return (<Comment data={{ ...item, index: index }} key={item.id} />)
+                    return (<Comment data={{ ...item, index: index }} setReplyData={() => { setReplyData(item) }} key={item.id} />)
                 }) : ''
             }
+            {
+                replyData.id ? <Quote username={replyData.username} word={replyData.word} cancel={() => { setReplyData({}) }} /> : ''
+            }
             <Edit ref={edit} />
-            <Button onClick={() => { submit(-1) }}>回复</Button>
+            <Button onClick={() => { submit() }}>回复</Button>
         </div>
     )
 }
