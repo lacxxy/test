@@ -16,6 +16,10 @@ module.exports = async (ctx, next) => {
             msg: '请先登录'
         }
     } else {
+        if(superiorId!=-1){
+            const sql=`update comments set nextCount=nextCount+1 where id=${superiorId}`;
+            await query(sql);
+        }
         const istSql = `insert into comments (word,date,postingId,authorid,superiorId,nextCount) values (${mysql.escape(word)},'${date}',${mysql.escape(postingId)},${mysql.escape(userid)},${mysql.escape(superiorId)},0)`;
         const res = await query(istSql);
 

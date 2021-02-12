@@ -1,9 +1,8 @@
 .Comment{
     display: flex;
+    width: 100%;
     flex-direction: row;
     padding: 10px 0;
-    border-top: 1px rgb(128, 126, 126) solid;
-    //border-bottom: 1px rgb(128, 126, 126) solid;
     .comment-msg{
         margin-left: 10px;
         flex: 1;
@@ -23,10 +22,14 @@
         p{  
             font-size: 16px;
         }
-        .reply{
+        .bottom-icon{
             cursor: pointer;
             font-size: 14px;
+            margin-right: 20px;
             color: #96999f;
+        }
+        .bottom-icon:hover{
+            color: rgb(43, 42, 42);
         }
     }
 }

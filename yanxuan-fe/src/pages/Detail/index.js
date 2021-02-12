@@ -6,7 +6,7 @@ import Quote from '../../components/Quote/index';
 import './index.less';
 import moment from 'moment';
 import cookie from 'react-cookies';
-import { Avatar, Button } from 'antd';
+import { Avatar, Button, List } from 'antd';
 const Detail = (props) => {
     const id = props.match.params.id;
     const [detailData, setDetailData] = useState([]);
@@ -93,9 +93,19 @@ const Detail = (props) => {
                 </div>
             </div>
             {
-                detailData.comments ? detailData.comments.map((item, index) => {
-                    return (<Comment data={{ ...item, index: index }} setReplyData={() => { setReplyData(item) }} key={item.id} />)
-                }) : ''
+                <List
+                    style={{ marginBottom: '20px' }}
+                    dataSource={detailData.comments}
+                    pagination={{
+                        pageSize: 10
+                    }
+                    }
+                    renderItem={(item, index) => (
+                        <List.Item>
+                            <Comment data={{ ...item, index: index }} setReplyData={setReplyData} key={item.id} />
+                        </List.Item>
+                    )}
+                />
             }
             {
                 replyData.id ? <Quote username={replyData.username} word={replyData.word} cancel={() => { setReplyData({}) }} /> : ''
