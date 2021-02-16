@@ -10,7 +10,7 @@
 
 # production
 /yanxuan-fe/build
-
+/yanxuan-koa/public/upload
 # misc
 /yanxuan-fe/.DS_Store
 /yanxuan-fe/.env.local
