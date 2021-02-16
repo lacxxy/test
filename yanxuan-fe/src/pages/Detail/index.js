@@ -6,7 +6,7 @@ import Quote from '../../components/Quote/index';
 import './index.less';
 import moment from 'moment';
 import cookie from 'react-cookies';
-import { Avatar, Button, List } from 'antd';
+import { Avatar, Button, List, Image } from 'antd';
 const Detail = (props) => {
     const id = props.match.params.id;
     const [detailData, setDetailData] = useState([]);
@@ -85,7 +85,8 @@ const Detail = (props) => {
         <div className="Detail">
             <p className="title">{detailData.head ? detailData.head.title : ''}</p>
             <div className="comment">
-                <Avatar style={{ width: '50px', height: '50px' }} className="avatar" src={detailData.head ? detailData.head.avatar : ''} />
+                <Avatar style={{ width: '50px', height: '50px' }} className="avatar" src={detailData.head?detailData.head.avatar:''} />
+
                 <div className="comment-msg">
                     <span className="username">{detailData.head ? detailData.head.username : ''}</span>
                     <span className="date">{detailData.head ? dateFormatter(detailData.head.date) : ''}</span>
@@ -97,7 +98,7 @@ const Detail = (props) => {
                     style={{ marginBottom: '20px' }}
                     dataSource={detailData.comments}
                     pagination={{
-                        pageSize: 10
+                        pageSize: 8
                     }
                     }
                     renderItem={(item, index) => (

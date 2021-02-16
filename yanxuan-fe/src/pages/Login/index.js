@@ -20,7 +20,8 @@ const Login = (props) => {
             password: pwd
         }).then(res => {
             if (res.data.code === 200) {
-                cookie.save('username', res.data.username, { path: '/' })
+                cookie.save('username', res.data.username, { path: '/' });
+                cookie.save('avatar', res.data.avatar, { path: '/' });
                 alert('登录成功');
                 hide();
                 props.history.replace('/index/index');

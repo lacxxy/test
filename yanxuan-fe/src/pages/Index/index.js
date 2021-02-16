@@ -51,7 +51,9 @@ const Index = (props) => {
     }
     return (
         <div id="Index">
-            <PtsList data={ListData} />
+            <div id="mylist">
+                <PtsList data={ListData} />
+            </div>
             <div className="edit">
                 <Input placeholder="请输入标题" value={title} onChange={(e) => { setTitle(e.target.value) }} />
                 <Edit ref={edit} />

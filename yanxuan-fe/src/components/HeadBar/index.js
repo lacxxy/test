@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.less';
 import { withRouter } from 'react-router-dom';
-import { Avatar } from 'antd';
+import { Avatar,Image } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
 import cookie from 'react-cookies'
@@ -18,8 +18,14 @@ const HeadBar = (props) => {
         props.history.replace(props.history.location.pathname);
         alert('注销成功');
     }
+    const goPersonal = () => {
+        props.history.push('/personal')
+    }
     const menu = (
         <Menu>
+            <Menu.Item onClick={goPersonal}>
+                我的
+            </Menu.Item>
             <Menu.Item onClick={exit}>
                 注销
             </Menu.Item>
@@ -27,17 +33,18 @@ const HeadBar = (props) => {
     )
     return (
         <div className="HeadBar">
-            <img src="./logo.jpg" alt="logo" />
+            <img className="logo" src="./logo.jpg" alt="logo" />
             {
                 cookie.load('username') ? (
                     <Dropdown overlay={menu}>
-                        <div className="login">
+                        <div onClick={goPersonal} className="login">
                             <span>{cookie.load('username')}</span>
-                            <Avatar icon={<UserOutlined />} />
+                            <Avatar icon={<UserOutlined />} src={cookie.load('avatar')}/>
+                            
                         </div>
                     </Dropdown>
                 ) : (
-                        <div className="login" onClick={goLogin}>
+                        <div onClick={setIfshow} className="login">
                             <span>登录</span>
                             <Avatar icon={<UserOutlined />} />
                         </div>

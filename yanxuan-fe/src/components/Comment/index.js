@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, List } from 'antd';
+import { Avatar, List,Image } from 'antd';
 import {
     RollbackOutlined,
     ReadOutlined
@@ -27,7 +27,7 @@ const Comment = (props) => {
     }
     return (
         <div className="Comment">
-            <Avatar style={{ width: '50px', height: '50px' }} className="avatar" src={props.data ? props.data.avatar : ''} />
+            <Avatar style={{ width: '50px', height: '50px' }} className="avatar" src={props.data.avatar} />
             <div className="comment-msg">
                 <span className="username">{props.data.username}</span>
                 <span className="date">{dateFormatter(props.data.date)}</span>
@@ -47,11 +47,14 @@ const Comment = (props) => {
                         }
                         renderItem={(item, index) => (
                             <List.Item>
-                                <div className="comment-msg">
+                                <div className="Comment">
+                                <Avatar style={{ width: '50px', height: '50px' }} className="avatar" src={item.avatar} />
+                                    <div className="comment-msg">
                                     <span className="username">{item.username}</span>
                                     <span className="date">{dateFormatter(item.date)}</span>
                                     <p dangerouslySetInnerHTML={{ __html: item.word }}></p>
                                     <span className="bottom-icon" onClick={() => { props.setReplyData(item); toBottom() }}><RollbackOutlined />回复</span>
+                                    </div>
                                 </div>
                             </List.Item>
                         )}

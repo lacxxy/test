@@ -15,9 +15,9 @@ module.exports = async (ctx, next) => {
             if (res.length > 0) {
                 ctx.response.body = {
                     code: 200,
-                    username:res[0].username
+                    username:res[0].username,
+                    avatar:res[0].avatar
                 }
-                //session
                 ctx.session.userId = res[0].id;
             } else {
                 ctx.response.body = {
