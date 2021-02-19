@@ -6,7 +6,7 @@ module.exports = async (ctx, next) => {
     const [head, err] = await query(sql);
     const authorid=head.authorid;
     const userSql=`select username,avatar from users where id=${authorid}`;
-    const cmtSql=`select a.username,a.avatar,b.* from users a,comments b where a.id=b.authorid and b.postingId=${id}`;
+    const cmtSql=`select a.username,a.avatar,b.* from users a,comments b where a.id=b.authorid and b.postingId=${id} group by b.date`;
     const user=await query(userSql);
     const comments=await query(cmtSql);
     const res={
