@@ -3,7 +3,9 @@ const session = require('koa-session');
 const koaBody = require('koa-body');
 const path = require('path')
 const staticFiles = require('koa-static')
+const cors=require('koa-cors');
 const app = new Koa();
+app.use(cors())
 app.keys = ['aiojdsabg)432'];
 app.use(staticFiles(path.join(__dirname, 'public')))
 const CONFIG = {

@@ -23,7 +23,7 @@ const PersonSide = (props) => {
     }
     return (
         <div className="PersonSide">
-            <Avatar className="avatar" src={<Image src={props.data.avatar} />}></Avatar>
+            <Avatar className="avatar" src={props.data.avatar }/>
             <div>
                 <Upload {...config}>
                     <Button icon={<UploadOutlined />}>上传头像</Button>

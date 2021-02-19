@@ -4,9 +4,9 @@ module.exports = async (ctx, next) => {
     let sql;
     const type = guide[ctx.request.query.type];
     if (type === 0) {
-        sql = `select * from postings`;
+        sql = `select a.id,a.title,a.type,a.date,b.num from postings a left join(select postingId,count(*) as num from comments group by postingId) b on a.id=b.postingId`;
     } else {
-        sql = `select * from postings where type=${type}`;
+        sql = `select a.id,a.title,a.type,a.date,b.num from postings a left join(select postingId,count(*) as num from comments group by postingId) b on a.id=b.postingId where type=${type}`;
     }
     await query(sql).then((res, err) => {
         if (err) {

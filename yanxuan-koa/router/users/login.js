@@ -1,10 +1,12 @@
 const query = require('../../mysql/connect');
 const mysql = require('mysql');
+const md5 = require('md5');
 module.exports = async (ctx, next) => {
     const email = ctx.request.body.email;
     const pwd = ctx.request.body.password;
-    //todo 加密
-    const sql = `select * from users where email=${mysql.escape(email)} and password=${mysql.escape(pwd)}`;
+    const salt= (await query(`select salt from users where email=${mysql.escape(email)}`))[0].salt;
+    const password=md5(pwd+salt);
+    const sql = `select * from users where email=${mysql.escape(email)} and password=${mysql.escape(password)}`;
     await query(sql).then((res, err) => {
         if (err) {
             ctx.response.body = {
