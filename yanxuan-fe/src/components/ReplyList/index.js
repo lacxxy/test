@@ -12,7 +12,7 @@ const ReplyList = (props) => {
             <List
                 size="large"
                 pagination={{
-                    pageSize: 15,
+                    pageSize: 8,
                 }}
                 bordered
                 dataSource={props.data}

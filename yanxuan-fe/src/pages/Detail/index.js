@@ -9,6 +9,7 @@ import cookie from 'react-cookies';
 import { Avatar, Button, List, Image } from 'antd';
 const Detail = (props) => {
     const id = props.match.params.id;
+    const [current, setCurrent] = useState(0);
     const [detailData, setDetailData] = useState([]);
     const [replyData, setReplyData] = useState({});
     const edit = useRef();
@@ -20,7 +21,6 @@ const Detail = (props) => {
         edit.current.setVal('');
     }
     const submit = () => {
-        console.log(replyData)
         const text = edit.current.getVal();
         if (!text.length) {
             alert("不能为空");
@@ -71,8 +71,18 @@ const Detail = (props) => {
         })
         return res;
     }
+    const handleCurrentChange = (page) => {
+        setCurrent(page);
+        axios.get(`/api/getDetail?id=${id}&index=${page}`).then(res => {
+            const data = res.data;
+            if (data.code == 200) {
+                data.data.comments = dataFormatter(data.data.comments)
+                setDetailData(data.data);
+            }
+        });
+    }
     useEffect(() => {
-        axios.get(`/api/getDetail?id=${id}`).then(res => {
+        axios.get(`/api/getDetail?id=${id}&index=0`).then(res => {
             const data = res.data;
             if (data.code == 200) {
                 data.data.comments = dataFormatter(data.data.comments)
@@ -85,7 +95,7 @@ const Detail = (props) => {
         <div className="Detail">
             <p className="title">{detailData.head ? detailData.head.title : ''}</p>
             <div className="comment">
-                <Avatar style={{ width: '50px', height: '50px' }} className="avatar" src={detailData.head?detailData.head.avatar:''} />
+                <Avatar style={{ width: '50px', height: '50px' }} className="avatar" src={detailData.head ? detailData.head.avatar : ''} />
 
                 <div className="comment-msg">
                     <span className="username">{detailData.head ? detailData.head.username : ''}</span>
@@ -98,12 +108,14 @@ const Detail = (props) => {
                     style={{ marginBottom: '20px' }}
                     dataSource={detailData.comments}
                     pagination={{
-                        pageSize: 8
+                        pageSize: 8,
+                        total: detailData.head ? detailData.head.count : 0,
+                        onChange: (index) => { handleCurrentChange(index-1) }
                     }
                     }
                     renderItem={(item, index) => (
                         <List.Item>
-                            <Comment data={{ ...item, index: index }} setReplyData={setReplyData} key={item.id} />
+                            <Comment data={{ ...item, index: index+current*8 }} setReplyData={setReplyData} key={item.id} />
                         </List.Item>
                     )}
                 />

@@ -14,12 +14,20 @@ const Index = (props) => {
     const edit = useRef();
     useEffect(() => {
         const type = props.match.params.type;
-        axios.get(`/api/getPstList?type=${type}`).then(res => {
+        axios.get(`/api/getPstList?type=${type}&index=${0}&num=${12}`).then(res => {
             if (res.data.code === 200) {
                 setListData(res.data.data)
             }
         });
     }, [props.match.params.type])
+    const handleChange = (current) => {
+        const type = props.match.params.type;
+        axios.get(`/api/getPstList?type=${type}&index=${current}&num=${2}`).then(res => {
+            if (res.data.code === 200) {
+                setListData(res.data.data)
+            }
+        });
+    }
     const selectChange = (value) => {
         setSelectVal(value);
     }
@@ -52,7 +60,7 @@ const Index = (props) => {
     return (
         <div id="Index">
             <div id="mylist">
-                <PtsList data={ListData} />
+                <PtsList data={ListData} pageSize={12} handleChange={handleChange} />
             </div>
             <div className="edit">
                 <Input placeholder="请输入标题" value={title} onChange={(e) => { setTitle(e.target.value) }} />

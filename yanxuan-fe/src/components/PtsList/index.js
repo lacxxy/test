@@ -13,10 +13,12 @@ const PtsList = (props) => {
             <List
                 size="large"
                 pagination={{
-                    pageSize: 15,
+                    pageSize: props.pageSize,
+                    total:props.data.total,
+                    onChange:(current)=>{props.handleChange(current-1)}
                 }}
                 bordered
-                dataSource={props.data}
+                dataSource={props.data.data}
                 renderItem={item => <List.Item className="item">
                     <span className="front">
                         <a target="_blank" href={`#/detail/${item.id}`}>{item.title}</a>

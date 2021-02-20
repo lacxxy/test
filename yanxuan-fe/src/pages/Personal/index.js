@@ -6,14 +6,15 @@ import PersonSide from '../../components/PersonSide/index';
 import './index.less';
 import axios from 'axios'
 const Personal = () => {
-    const [ListData, setListData] = useState([]);
+    const [ListData, setListData] = useState({});
+    const [replyData,setReplyData]=useState([]);
     const [myData, setMydata] = useState({});
     const [selectKey, setSelectKey] = useState('posting');
     const handelChange = (item) => {
         const key = item.key;
         setSelectKey(key);
         if (key == 'posting') {
-            getHistory()
+            getHistory(0)
         } else if (key == 'reply') {
             getReply()
         }
@@ -21,12 +22,12 @@ const Personal = () => {
     const getReply = () => {
         axios.get(`/api/getRlyHistory`).then(res => {
             if (res.data.code === 200) {
-                setListData(res.data.data)
+                setReplyData(res.data.data)
             }
         });
     }
-    const getHistory = () => {
-        axios.get(`/api/getHistory`).then(res => {
+    const getHistory = (current) => {
+        axios.get(`/api/getHistory?index=${current}&num=5`).then(res => {
             if (res.data.code === 200) {
                 setListData(res.data.data)
             }
@@ -39,8 +40,11 @@ const Personal = () => {
             }
         })
     }
+    const handlePageChange = (current) => {
+        getHistory(current);
+    }
     useEffect(() => {
-        getHistory();
+        getHistory(0);
         getMyData();
     }, [])
     return (
@@ -55,7 +59,7 @@ const Personal = () => {
                     </Menu.Item>
                 </Menu>
                 <div>
-                    {selectKey === 'posting' ? <PtsList className="list" data={ListData} /> : <ReplyList data={ListData} />}
+                    {selectKey === 'posting' ? <PtsList className="list" pageSize={5} data={ListData} handleChange={handlePageChange} /> : <ReplyList data={replyData} />}
                 </div>
             </div>
             <PersonSide data={myData} />
