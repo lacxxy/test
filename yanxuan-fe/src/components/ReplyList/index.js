@@ -17,9 +17,7 @@ const ReplyList = (props) => {
                 bordered
                 dataSource={props.data}
                 renderItem={item => <List.Item>
-                    <a target="_blank" href={`#/detail/${item.postingId}`} dangerouslySetInnerHTML={{ __html: item.word }}>
-
-                    </a>
+                    <a target="_blank" href={`#/detail/${item.postingId}`} dangerouslySetInnerHTML={{ __html: item.word }} />
                     <span>{dateFormatter(item.date)}</span>
                 </List.Item>}
             />

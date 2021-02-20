@@ -2,7 +2,7 @@ const query = require('../../mysql/connect');
 module.exports = async (ctx, next) => {
     let sql;
     const id = ctx.session.userId;
-    sql = `select * from postings where authorid=${id}`;
+    sql = `select a.id,a.title,a.type,a.date,b.num from postings a left join(select postingId,count(*) as num from comments group by postingId) b on a.id=b.postingId where authorid=${id} order by a.date desc`;
     const permit = (await query(`select * from users where id='${id}'`)).length;
     if (!permit) {
         ctx.response.body = {

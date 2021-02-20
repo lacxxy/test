@@ -57,16 +57,18 @@ const Index = (props) => {
             <div className="edit">
                 <Input placeholder="请输入标题" value={title} onChange={(e) => { setTitle(e.target.value) }} />
                 <Edit ref={edit} />
-                <Select defaultValue={guide[0].key} onChange={selectChange} className="select" >
-                    {
-                        guide.map(item => {
-                            return (
-                                <Option value={item.key} key={item.key}>{item.text}</Option>
-                            )
-                        })
-                    }
-                </Select>
-                <Button onClick={submit}>发布</Button>
+                <div className="btn-area">
+                    <Select defaultValue={guide[0].key} onChange={selectChange} className="select" >
+                        {
+                            guide.map(item => {
+                                return (
+                                    <Option value={item.key} key={item.key}>{item.text}</Option>
+                                )
+                            })
+                        }
+                    </Select>
+                    <Button onClick={submit}>发布</Button>
+                </div>
             </div>
         </div>
     )

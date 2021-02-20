@@ -15,8 +15,8 @@ const HeadBar = (props) => {
         cookie.remove('username', { path: '/' });
         cookie.remove('userId', { path: '/' });
         cookie.remove('userId.sig', { path: '/' });
-        props.history.replace(props.history.location.pathname);
         alert('注销成功');
+        props.history.replace(props.history.location.pathname);
     }
     const goPersonal = () => {
         props.history.push('/personal')

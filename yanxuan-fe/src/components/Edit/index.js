@@ -17,7 +17,6 @@ const Edit = (props, ref) => {
         }
     }))
     useEffect(() => {
-        // 注：class写法需要在componentDidMount 创建编辑器
         editor = new E("#edit")
         editor.config.menus = [
             'image'
@@ -26,12 +25,10 @@ const Edit = (props, ref) => {
         editor.config.onchange = (newHtml) => {
             setContent(newHtml)
         }
-        //editor.config.height = 800;
+        editor.config.height = 200;
         editor.config.zIndex = 0;
-        /**一定要创建 */
         editor.create()
         return () => {
-            // 组件销毁时销毁编辑器  注：class写法需要在componentWillUnmount中调用
             editor.destroy()
         }
     }, []);

@@ -10,11 +10,11 @@ module.exports = async (ctx, next) => {
             msg: '请先登录'
         }
     } else {
-        const sql = `select * from comments where authorid=${id}`;
+        const sql = `select * from comments where authorid=${id} order by date desc`;
         const res = await query(sql);
         ctx.response.body = {
             code: 200,
-            data: res.length ? res : [res]
+            data: res
         }
     }
 }
