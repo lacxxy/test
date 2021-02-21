@@ -11,6 +11,7 @@ const Detail = (props) => {
     const id = props.match.params.id;
     const [current, setCurrent] = useState(0);
     const [detailData, setDetailData] = useState([]);
+    const [headData, setHeadData] = useState({});
     const [replyData, setReplyData] = useState({});
     const edit = useRef();
     const dateFormatter = (value) => {
@@ -81,26 +82,41 @@ const Detail = (props) => {
             }
         });
     }
+    const deletePst = () => {
+        const ifDlt = window.confirm('确认删除?');
+        if (!ifDlt) return;
+        axios.delete('/api/dltPst', {
+            data: {
+                id: id
+            }
+        }).then(res => {
+            alert(res.data.msg);
+        })
+    }
     useEffect(() => {
         axios.get(`/api/getDetail?id=${id}&index=0`).then(res => {
             const data = res.data;
             if (data.code == 200) {
                 data.data.comments = dataFormatter(data.data.comments)
-                setDetailData(data.data)
+                setDetailData(data.data);
+                setHeadData(data.data.head);
             }
         });
     }, [props])
 
     return (
         <div className="Detail">
-            <p className="title">{detailData.head ? detailData.head.title : ''}</p>
+            <div className="title-area">
+                <span className="title">{headData.title}</span>
+                {cookie.load('id') == headData.id ? <span className="delete" onClick={deletePst}>删除</span> : ''}
+            </div>
             <div className="comment">
                 <Avatar style={{ width: '50px', height: '50px' }} className="avatar" src={detailData.head ? detailData.head.avatar : ''} />
 
                 <div className="comment-msg">
-                    <span className="username">{detailData.head ? detailData.head.username : ''}</span>
-                    <span className="date">{detailData.head ? dateFormatter(detailData.head.date) : ''}</span>
-                    <p dangerouslySetInnerHTML={{ __html: detailData.head ? detailData.head.word : '' }}></p>
+                    <span className="username">{headData.username}</span>
+                    <span className="date">{dateFormatter(headData.date)}</span>
+                    <p dangerouslySetInnerHTML={{ __html: headData.word }}></p>
                 </div>
             </div>
             {
@@ -109,13 +125,13 @@ const Detail = (props) => {
                     dataSource={detailData.comments}
                     pagination={{
                         pageSize: 8,
-                        total: detailData.head ? detailData.head.count : 0,
-                        onChange: (index) => { handleCurrentChange(index-1) }
+                        total: headData.count | 0,
+                        onChange: (index) => { handleCurrentChange(index - 1) }
                     }
                     }
                     renderItem={(item, index) => (
                         <List.Item>
-                            <Comment data={{ ...item, index: index+current*8 }} setReplyData={setReplyData} key={item.id} />
+                            <Comment data={{ ...item, index: index + current * 8 }} setReplyData={setReplyData} key={item.id} />
                         </List.Item>
                     )}
                 />

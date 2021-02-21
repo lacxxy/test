@@ -3,7 +3,7 @@ const session = require('koa-session');
 const koaBody = require('koa-body');
 const path = require('path')
 const staticFiles = require('koa-static')
-const cors=require('koa-cors');
+const cors = require('koa-cors');
 const app = new Koa();
 app.use(cors())
 app.keys = ['aiojdsabg)432'];
@@ -16,6 +16,7 @@ const CONFIG = {
 app.use(session(CONFIG, app));
 app.use(koaBody({
     multipart: true,
+    strict: false,
     formidable: {
         maxFileSize: 200 * 1024 * 1024 // 设置上传文件大小最大限制，默认2M
     }
@@ -32,7 +33,8 @@ const getHistory = require('./router/postings/getHistory');
 const getRlyHistory = require('./router/comments/getRlyHistory');
 const getMes = require('./router/users/getMes');
 const editHead = require('./router/users/editHead');
-
+const dltPst = require('./router/postings/dltPst');
+const dltCmt = require('./router/comments/dltCmt');
 // 对于任何请求，app将调用该异步函数处理请求：
 router.get('/getPstList', getPstList);
 router.post('/login', login);
@@ -45,6 +47,8 @@ router.get('/getHistory', getHistory);
 router.get('/getRlyHistory', getRlyHistory);
 router.get('/getMes', getMes);
 router.post('/editHead', editHead);
+router.delete('/dltPst', dltPst);
+router.delete('/dltCmt', dltCmt);
 app.use(router.routes());
 // 在端口5000监听:
 app.listen(5000);

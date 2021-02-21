@@ -18,7 +18,8 @@ module.exports = async (ctx, next) => {
                 ctx.response.body = {
                     code: 200,
                     username:res[0].username,
-                    avatar:res[0].avatar
+                    avatar:res[0].avatar,
+                    id:res[0].id
                 }
                 ctx.session.userId = res[0].id;
             } else {

@@ -22,6 +22,7 @@ const Login = (props) => {
             if (res.data.code === 200) {
                 cookie.save('username', res.data.username, { path: '/' });
                 cookie.save('avatar', res.data.avatar, { path: '/' });
+                cookie.save('id', res.data.id, { path: '/' });
                 alert('登录成功');
                 hide();
                 props.history.replace('/index/index');
