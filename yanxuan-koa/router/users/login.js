@@ -4,7 +4,14 @@ const md5 = require('md5');
 module.exports = async (ctx, next) => {
     const email = ctx.request.body.email;
     const pwd = ctx.request.body.password;
-    const salt= (await query(`select salt from users where email=${mysql.escape(email)}`))[0].salt;
+    const user=(await query(`select salt from users where email=${mysql.escape(email)}`))[0];
+    if(!user){
+        return ctx.response.body = {
+            code: 400,
+            msg: '密码错误'
+        }
+    }
+    const salt= user.salt;
     const password=md5(pwd+salt);
     const sql = `select * from users where email=${mysql.escape(email)} and password=${mysql.escape(password)}`;
     await query(sql).then((res, err) => {

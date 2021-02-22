@@ -11,7 +11,7 @@ module.exports = async (ctx, next) => {
     const cmtSql = `select a.username,a.avatar,b.* 
     from users a,comments b 
     where a.id=b.authorid and b.postingId=${id} 
-    group by b.date
+    order by b.date
     limit ${index*8},8
     `;
     const count = (await query(countSql))[0].total;

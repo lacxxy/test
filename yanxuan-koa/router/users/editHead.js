@@ -19,7 +19,7 @@ module.exports = async (ctx, next) => {
         const upStream = fs.createWriteStream(filePath);
         // 可读流通过管道写入可写流
         reader.pipe(upStream);
-        const url=`http://127.0.0.1:5000/upload/${file.name}`;
+        const url=`http://111.230.63.143:5000/upload/${file.name}`;
         let sql = `update users set avatar='${url}' where id=${id}`;
         await query(sql).then((res, err) => {
             if (err) {

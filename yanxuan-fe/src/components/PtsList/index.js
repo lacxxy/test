@@ -21,7 +21,7 @@ const PtsList = (props) => {
                 dataSource={props.data.data}
                 renderItem={item => <List.Item className="item">
                     <span className="front">
-                        <a target="_blank" href={`#/detail/${item.id}`}>{item.title}</a>
+                        <a href={`#/detail/${item.id}`}>{item.title}</a>
                         <span className="type">{item.type ? guide[item.type - 1].text : ''}</span>
                     </span>
                     <span>
