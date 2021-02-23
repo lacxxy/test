@@ -15,13 +15,14 @@ const PtsList = (props) => {
                 pagination={{
                     pageSize: props.pageSize,
                     total:props.data.total,
-                    onChange:(current)=>{props.handleChange(current-1)}
+                    onChange:(current)=>{props.handleChange(current-1)},
+                    showSizeChanger:false
                 }}
                 bordered
                 dataSource={props.data.data}
                 renderItem={item => <List.Item className="item">
                     <span className="front">
-                        <a href={`#/detail/${item.id}`}>{item.title}</a>
+                        <a target="_blank" href={`#/detail/${item.id}`}>{item.title}</a>
                         <span className="type">{item.type ? guide[item.type - 1].text : ''}</span>
                     </span>
                     <span>

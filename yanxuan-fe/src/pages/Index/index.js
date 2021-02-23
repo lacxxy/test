@@ -22,7 +22,7 @@ const Index = (props) => {
     }, [props.match.params.type])
     const handleChange = (current) => {
         const type = props.match.params.type;
-        axios.get(`/api/getPstList?type=${type}&index=${current}&num=${2}`).then(res => {
+        axios.get(`/api/getPstList?type=${type}&index=${current}&num=${12}`).then(res => {
             if (res.data.code === 200) {
                 setListData(res.data.data)
             }

@@ -30,7 +30,7 @@ const Comment = (props) => {
     const dlt = () => {
         const ifDlt = window.confirm('确认删除?');
         if (!ifDlt) return;
-        axios.delete('api/dltCmt', {
+        axios.delete('/api/dltCmt', {
             data: {
                 id: props.data.id
             }
