@@ -36,7 +36,7 @@ const Comment = (props) => {
             }
         }).then(res => {
             message.info(res.data.msg);
-            props.history.replace(props.history.location.pathname);
+            props.history.go(0);
         })
     }
     return (

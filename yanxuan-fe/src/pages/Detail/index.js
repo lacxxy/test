@@ -41,6 +41,7 @@ const Detail = (props) => {
             message.info(data.msg);
             if (data.code == 200) {
                 clearInput();
+                props.history.go(0)
             }
         })
     }
