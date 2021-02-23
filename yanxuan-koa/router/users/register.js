@@ -32,7 +32,7 @@ module.exports = async (ctx, next) => {
                                 msg: err
                             }
                         } else {
-                            const id=await query(`select max(id) from users`);
+                            const id=(await query(`select max(id) as id from users`))[0].id;
                             ctx.response.body = {
                                 code: 200,
                                 msg: '创建成功',
