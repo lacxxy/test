@@ -5,7 +5,7 @@ import { Avatar,Image } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
 import cookie from 'react-cookies'
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown,message } from 'antd';
 const HeadBar = (props) => {
     const { ifshow, setIfshow } = props;
     const goLogin = () => {
@@ -15,7 +15,7 @@ const HeadBar = (props) => {
         cookie.remove('username', { path: '/' });
         cookie.remove('userId', { path: '/' });
         cookie.remove('userId.sig', { path: '/' });
-        alert('注销成功');
+        message.info('注销成功');
         props.history.replace(props.history.location.pathname);
     }
     const goPersonal = () => {

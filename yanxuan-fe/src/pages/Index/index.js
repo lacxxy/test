@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PtsList from '../../components/PtsList/index';
 import Edit from '../../components/Edit/index';
-import { Input, Select, Button } from 'antd';
+import { Input, Select, Button ,message} from 'antd';
 import './index.less';
 import axios from 'axios';
 import { guide } from '../../const/index';
@@ -38,11 +38,11 @@ const Index = (props) => {
     }
     const submit = () => {
         if (title == '') {
-            alert("无法为空");
+            message.info("无法为空");
             return;
         }
         if (!cookie.load('username')) {
-            alert("请先登录!");
+            message.info("请先登录!");
             return;
         }
         const params = {
@@ -51,7 +51,7 @@ const Index = (props) => {
             type: selectVal,
         }
         axios.post('/api/newPst', params).then((res) => {
-            alert(res.data.msg);
+            message.info(res.data.msg);
             if (res.data.code == 200) {
                 clearInput();
             }

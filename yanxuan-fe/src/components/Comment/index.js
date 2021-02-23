@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, List, Image } from 'antd';
+import { Avatar, List, Image,message } from 'antd';
 import { withRouter } from 'react-router-dom';
 import {
     RollbackOutlined,
@@ -35,7 +35,7 @@ const Comment = (props) => {
                 id: props.data.id
             }
         }).then(res => {
-            alert(res.data.msg);
+            message.info(res.data.msg);
             props.history.replace(props.history.location.pathname);
         })
     }

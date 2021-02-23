@@ -7,9 +7,9 @@ module.exports = async (ctx, next) => {
         password,
         email
     } = ctx.request.body;
-    const salt=Math.random();
+    const salt = Math.random();
     console.log(`${password}${salt}`);
-    const pwd=md5(`${password}${salt}`);
+    const pwd = md5(`${password}${salt}`);
     if (!username.length || !email.length) {
         ctx.response.body = {
             code: 400,
@@ -24,7 +24,7 @@ module.exports = async (ctx, next) => {
                     msg: '该邮箱已创建过用户'
                 }
             } else {
-                await query(sql).then((res, err) => {
+                await query(sql).then(async (res, err) => {
                     {
                         if (err) {
                             ctx.response.body = {
@@ -32,11 +32,15 @@ module.exports = async (ctx, next) => {
                                 msg: err
                             }
                         } else {
+                            const id=await query(`select max(id) from users`);
                             ctx.response.body = {
                                 code: 200,
-                                msg: '创建成功'
+                                msg: '创建成功',
+                                username: username,
+                                avatar: null,
+                                id: id
                             }
-
+                            ctx.session.userId = id;
                         }
                     }
                 })

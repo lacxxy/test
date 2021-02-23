@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.less';
-import { Input, Button } from 'antd';
+import { Input, Button,message } from 'antd';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
@@ -23,11 +23,11 @@ const Login = (props) => {
                 cookie.save('username', res.data.username, { path: '/' });
                 cookie.save('avatar', res.data.avatar, { path: '/' });
                 cookie.save('id', res.data.id, { path: '/' });
-                alert('登录成功');
+                message.info('登录成功');
                 hide();
                 props.history.replace('/index/index');
             } else {
-                alert(res.data.msg);
+                message.info(res.data.msg);
             }
         })
     }

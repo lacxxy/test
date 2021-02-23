@@ -6,7 +6,7 @@ import Quote from '../../components/Quote/index';
 import './index.less';
 import moment from 'moment';
 import cookie from 'react-cookies';
-import { Avatar, Button, List, Image } from 'antd';
+import { Avatar, Button, List, Image,message } from 'antd';
 const Detail = (props) => {
     const id = props.match.params.id;
     const [current, setCurrent] = useState(0);
@@ -24,11 +24,11 @@ const Detail = (props) => {
     const submit = () => {
         const text = edit.current.getVal();
         if (!text.length) {
-            alert("不能为空");
+            message.info('无法为空!')
             return;
         }
         if (!cookie.load('username')) {
-            alert("请先登录");
+            message.info('请先登录!')
             return;
         }
         const params = {
@@ -38,7 +38,7 @@ const Detail = (props) => {
         };
         axios.post('/api/newCmt', params).then(res => {
             const data = res.data;
-            alert(data.msg);
+            message.info(data.msg);
             if (data.code == 200) {
                 clearInput();
             }
@@ -90,7 +90,7 @@ const Detail = (props) => {
                 id: id
             }
         }).then(res => {
-            alert(res.data.msg);
+            message.info(res.data.msg);
         })
     }
     useEffect(() => {

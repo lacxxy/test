@@ -1,15 +1,20 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import './index.less';
 import axios from 'axios';
 import Nav from '../../components/Nav/index';
+import cookie from 'react-cookies';
 const Rgst = (props) => {
     const [form] = Form.useForm();
     const submit = () => {
         axios.post('/api/register', form.getFieldsValue()).then(res => {
-            alert(res.data.msg);
+            message.info(res.data.msg);
             if (res.data.code == 200) {
-                form.resetFields();
+                const { username, avatar, id } = res.data;
+                cookie.save('username', username, { path: '/' });
+                cookie.save('avatar', avatar, { path: '/' });
+                cookie.save('id', id, { path: '/' });
+                props.history.push('/index/index')
             }
         })
     }
